@@ -1,694 +1,727 @@
 <!DOCTYPE html>
 <html lang="mn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Echo of Soul — ХҮН БАЙХУЙ ТӨСӨЛ</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Echo of Soul — ХҮН БАЙХУЙ ТӨСӨЛ</title>
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
-  :root {
-    --white: #f5f5f0;
-    --ice: rgba(245,245,240,0.85);
-    --mist: rgba(245,245,240,0.45);
-    --ghost: rgba(245,245,240,0.12);
-    --accent: #c8d8e8;
-  }
-
-  html, body {
-    width: 100%; height: 100%;
-    background: #1a1f1e;
-    color: var(--white);
-    font-family: 'Space Mono', monospace;
-    overflow-x: hidden;
-  }
-
-  .hero {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 40%, #2c3a35 0%, transparent 60%),
-      radial-gradient(ellipse 60% 80% at 70% 60%, #1e2a28 0%, transparent 55%),
-      radial-gradient(ellipse 100% 50% at 50% 0%, #3a4a48 0%, #151c1b 60%),
-      linear-gradient(180deg, #2a3432 0%, #111918 55%, #0d1413 100%);
-    z-index: 0;
-  }
-
-  .mist-layer {
-    position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  }
-  .mist-layer::before, .mist-layer::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.18;
-  }
-  .mist-layer::before {
-    width: 70vw; height: 50vh;
-    background: radial-gradient(ellipse, #7a9e98, transparent 70%);
-    top: 10%; left: -10%;
-    animation: drift1 18s ease-in-out infinite alternate;
-  }
-  .mist-layer::after {
-    width: 50vw; height: 40vh;
-    background: radial-gradient(ellipse, #5a7a80, transparent 70%);
-    top: 30%; right: -5%;
-    animation: drift2 22s ease-in-out infinite alternate;
-  }
-  @keyframes drift1 { from { transform: translateX(0) translateY(0); } to { transform: translateX(8vw) translateY(-4vh); } }
-  @keyframes drift2 { from { transform: translateX(0) translateY(0); } to { transform: translateX(-6vw) translateY(5vh); } }
-
-  .swoosh {
-    position: absolute; inset: 0; z-index: 2; pointer-events: none;
-    width: 100%; height: 100%;
-  }
-  .swoosh path {
-    fill: none;
-    stroke: rgba(245,245,240,0.18);
-    stroke-width: 1;
-    stroke-linecap: round;
-  }
-  .swoosh path:nth-child(2) { stroke-width: 0.8; opacity: 0.7; }
-  .swoosh path:nth-child(3) { stroke-width: 0.6; opacity: 0.5; }
-
-  .mountain {
-    position: absolute; bottom: 0; left: 0; width: 100%; z-index: 3;
-    pointer-events: none;
-  }
-
-  nav {
-    position: relative; z-index: 10;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 32px;
-    animation: fadeDown 1s ease 0.2s both;
-  }
-  @keyframes fadeDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
-
-  .nav-logo {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 0.08em;
-    line-height: 1.4;
-    text-transform: uppercase;
-    color: var(--white);
-  }
-  .nav-logo span { display: block; }
-
-  .nav-links {
-    display: flex; gap: 48px;
-    list-style: none;
-    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--mist);
-  }
-  .nav-links li { cursor: pointer; transition: color 0.3s; }
-  .nav-links li:hover { color: var(--white); }
-
-  .title-block {
-    position: absolute; z-index: 8;
-    bottom: 28%; left: 50%; transform: translateX(-50%);
-    text-align: center;
-    width: 100%;
-    animation: fadeUp 1.2s ease 0.5s both;
-  }
-  @keyframes fadeUp { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
-
-  .main-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(80px, 14vw, 200px);
-    letter-spacing: 0.02em;
-    color: var(--white);
-    line-height: 0.9;
-    text-shadow: 0 2px 40px rgba(0,0,0,0.4);
-    user-select: none;
-  }
-
-  .sub-tagline {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-size: clamp(11px, 1.4vw, 16px);
-    color: var(--mist);
-    letter-spacing: 0.25em;
-    margin-top: 8px;
-    text-transform: lowercase;
-  }
-
-  .soul-btn-wrap {
-    position: absolute; z-index: 12;
-    bottom: 5%; left: 50%; transform: translateX(-50%);
-    animation: fadeUp2 1.5s ease 1s both;
-  }
-  @keyframes fadeUp2 { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
-
-  .soul-btn {
-    background: none;
-    border: 1px solid rgba(245,245,240,0.25);
-    color: var(--mist);
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
-    padding: 12px 28px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: color 0.4s, border-color 0.4s;
-  }
-  .soul-btn::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: rgba(245,245,240,0.05);
-    transform: translateX(-100%);
-    transition: transform 0.4s ease;
-  }
-  .soul-btn:hover::before { transform: translateX(0); }
-  .soul-btn:hover { color: var(--white); border-color: rgba(245,245,240,0.6); }
-
-  .modal-overlay {
-    display: none;
-    position: fixed; inset: 0; z-index: 100;
-    background: rgba(10,14,13,0.92);
-    backdrop-filter: blur(12px);
-    align-items: center; justify-content: center;
-    flex-direction: column;
-  }
-  .modal-overlay.active { display: flex; }
-
-  .modal {
-    width: min(520px, 90vw);
-    border: 1px solid rgba(245,245,240,0.12);
-    background: rgba(20,28,26,0.9);
-    padding: 48px 40px;
-    text-align: center;
-    animation: modalIn 0.5s cubic-bezier(0.16,1,0.3,1) both;
-  }
-  @keyframes modalIn { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-
-  .modal-question {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-size: clamp(18px, 3vw, 26px);
-    color: var(--white);
-    margin: 0 auto 18px;
-    line-height: 1.5;
-    max-width: 440px;
-    text-align: center;
-    overflow-wrap: anywhere;
-    word-break: keep-all;
-  }
-  .modal-sub {
-    font-size: 10px; letter-spacing: 0.15em;
-    color: var(--mist); text-transform: uppercase;
-    margin-bottom: 40px;
-  }
-
-  .score-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 32px;
-  }
-  .score-btn {
-    width: 46px; height: 46px;
-    border: 1px solid rgba(245,245,240,0.2);
-    background: none;
-    color: var(--mist);
-    font-family: 'Space Mono', monospace;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.25s;
-  }
-  .score-btn:hover, .score-btn.selected {
-    background: rgba(245,245,240,0.08);
-    border-color: var(--white);
-    color: var(--white);
-    transform: scale(1.08);
-  }
-  .score-btn.selected {
-    background: rgba(200,216,232,0.15);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .result-area {
-    display: none;
-    animation: riseIn 0.6s ease both;
-    border-top: 1px solid rgba(245,245,240,0.1);
-    padding-top: 28px;
-    margin-top: 4px;
-  }
-  @keyframes riseIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .result-area.active { display: block; }
-
-  .result-score-display {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 64px;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 14px;
-  }
-  .result-score-label {
-    display: none;
-  }
-  .result-quote {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-size: clamp(14px, 2vw, 18px);
-    color: var(--white);
-    line-height: 1.7;
-    min-height: 60px;
-  }
-  .quote-prefix {
-    font-family: 'Space Mono', monospace;
-    font-style: normal;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--mist);
-    margin-bottom: 14px;
-  }
-  .quote-text {
-    margin-bottom: 14px;
-  }
-  .quote-author {
-    font-family: 'Space Mono', monospace;
-    font-style: normal;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-  }
-  .loading-anim::after {
-    content: '';
-    animation: ldots 1.2s steps(4, end) infinite;
-  }
-  @keyframes ldots { 0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'} 100%{content:''} }
-
-  .modal-close {
-    margin-top: 28px;
-    background: none; border: none;
-    color: var(--mist); font-family: 'Space Mono', monospace;
-    font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
-    cursor: pointer; transition: color 0.3s;
-  }
-  .modal-close:hover { color: var(--white); }
-
-  .qr-corner {
-    display: none;
-    position: absolute; z-index: 9;
-    bottom: 14%; left: 5%;
-    opacity: 0.4;
-    font-size: 8px; letter-spacing: 0.12em;
-    color: var(--mist);
-    text-transform: uppercase;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .qr-box {
-    width: 36px; height: 36px;
-    border: 1px solid rgba(245,245,240,0.3);
-    display: grid; grid-template-columns: repeat(5,1fr); gap: 1px;
-    padding: 3px;
-  }
-  .qr-box span { background: rgba(245,245,240,0.6); border-radius: 1px; }
-  .qr-box span:nth-child(odd) { background: transparent; }
-  .qr-box span:nth-child(3n) { background: rgba(245,245,240,0.8); }
-
-
-  .hero {
-    min-height: 100svh;
-  }
-
-  .title-block {
-    padding-inline: 24px;
-  }
-
-  .main-title {
-    word-break: break-word;
-  }
-
-  .qr-corner {
-    left: 24px;
-    bottom: 88px;
-    gap: 0;
-  }
-
-  @media (max-width: 992px) {
-    nav {
-      padding: 18px 22px;
-      gap: 14px;
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    .nav-links {
-      gap: 18px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+    :root {
+      --white: #f5f5f0;
+      --ice: rgba(245,245,240,0.85);
+      --mist: rgba(245,245,240,0.45);
+      --ghost: rgba(245,245,240,0.12);
+      --accent: #c8d8e8;
     }
 
-    .title-block {
-      bottom: 30%;
-    }
-
-    .main-title {
-      font-size: clamp(58px, 15vw, 120px);
-      line-height: 0.95;
-    }
-
-    .sub-tagline {
-      letter-spacing: 0.16em;
-      padding-inline: 12px;
-    }
-  }
-
-  @media (max-width: 768px) {
     html, body {
+      width: 100%;
+      min-height: 100%;
+      background: #1a1f1e;
+      color: var(--white);
+      font-family: 'Space Mono', monospace;
       overflow-x: hidden;
     }
 
-    nav {
-      align-items: center;
-      justify-content: center;
+    body {
+      position: relative;
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
       flex-direction: column;
-      text-align: center;
-      padding: 16px 16px 0;
+    }
+
+    .bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 40%, #2c3a35 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 70% 60%, #1e2a28 0%, transparent 55%),
+        radial-gradient(ellipse 100% 50% at 50% 0%, #3a4a48 0%, #151c1b 60%),
+        linear-gradient(180deg, #2a3432 0%, #111918 55%, #0d1413 100%);
+      z-index: 0;
+    }
+
+    .mist-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .mist-layer::before,
+    .mist-layer::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.18;
+    }
+
+    .mist-layer::before {
+      width: 70vw;
+      height: 50vh;
+      background: radial-gradient(ellipse, #7a9e98, transparent 70%);
+      top: 10%;
+      left: -10%;
+      animation: drift1 18s ease-in-out infinite alternate;
+    }
+
+    .mist-layer::after {
+      width: 50vw;
+      height: 40vh;
+      background: radial-gradient(ellipse, #5a7a80, transparent 70%);
+      top: 30%;
+      right: -5%;
+      animation: drift2 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift1 {
+      from { transform: translateX(0) translateY(0); }
+      to   { transform: translateX(8vw) translateY(-4vh); }
+    }
+
+    @keyframes drift2 {
+      from { transform: translateX(0) translateY(0); }
+      to   { transform: translateX(-6vw) translateY(5vh); }
+    }
+
+    .swoosh {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .swoosh path {
+      fill: none;
+      stroke: rgba(245,245,240,0.18);
+      stroke-width: 1;
+      stroke-linecap: round;
+    }
+
+    .swoosh path:nth-child(2) {
+      stroke-width: 0.8;
+      opacity: 0.7;
+    }
+
+    .swoosh path:nth-child(3) {
+      stroke-width: 0.6;
+      opacity: 0.5;
+    }
+
+    .mountain {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 32px;
+      animation: fadeDown 1s ease 0.2s both;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .nav-logo {
-      font-size: 9px;
-      line-height: 1.5;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .nav-logo span {
+      display: block;
     }
 
     .nav-links {
-      width: 100%;
-      justify-content: center;
-      gap: 10px 14px;
-      font-size: 9px;
-      letter-spacing: 0.1em;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      list-style: none;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mist);
+      justify-content: flex-end;
+    }
+
+    .nav-links li {
+      transition: color 0.3s ease;
+      cursor: default;
     }
 
     .title-block {
-      bottom: 34%;
-      padding-inline: 16px;
+      position: absolute;
+      z-index: 8;
+      left: 50%;
+      bottom: 28%;
+      transform: translateX(-50%);
+      width: min(92vw, 1100px);
+      text-align: center;
+      animation: fadeUp 1.2s ease 0.5s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
 
     .main-title {
-      font-size: clamp(46px, 16vw, 78px);
-      line-height: 0.98;
-    }
-
-    .sub-tagline {
-      font-size: clamp(10px, 3.2vw, 13px);
-      letter-spacing: 0.12em;
-      margin-top: 10px;
-    }
-
-    .qr-corner {
-      left: 50%;
-      bottom: 112px;
-      transform: translateX(-50%);
-      opacity: 0.28;
-    }
-
-    .qr-box {
-      width: 28px;
-      height: 28px;
-      padding: 2px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 14vw, 200px);
+      letter-spacing: 0.02em;
+      color: var(--white);
+      line-height: 0.9;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.4);
+      user-select: none;
     }
 
     .soul-btn-wrap {
-      bottom: 7%;
-      width: calc(100% - 32px);
-      display: flex;
-      justify-content: center;
+      position: absolute;
+      z-index: 12;
+      left: 50%;
+      bottom: 5%;
+      transform: translateX(-50%);
+      animation: fadeUp2 1.5s ease 1s both;
+    }
+
+    @keyframes fadeUp2 {
+      from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
 
     .soul-btn {
-      width: min(100%, 320px);
-      padding: 12px 18px;
+      background: none;
+      border: 1px solid rgba(245,245,240,0.25);
+      color: var(--mist);
+      font-family: 'Space Mono', monospace;
       font-size: 9px;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.4s, border-color 0.4s;
       white-space: nowrap;
     }
 
+    .soul-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(245,245,240,0.05);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+
+    .soul-btn:hover::before {
+      transform: translateX(0);
+    }
+
+    .soul-btn:hover {
+      color: var(--white);
+      border-color: rgba(245,245,240,0.6);
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(10,14,13,0.92);
+      backdrop-filter: blur(12px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
     .modal {
-      width: min(94vw, 520px);
-      padding: 32px 18px;
+      width: min(560px, 100%);
+      max-height: min(88vh, 780px);
+      overflow-y: auto;
+      border: 1px solid rgba(245,245,240,0.12);
+      background: rgba(20,28,26,0.92);
+      padding: 40px 30px 34px;
+      text-align: center;
+      animation: modalIn 0.5s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .modal-question {
-      font-size: clamp(17px, 5vw, 24px);
-      max-width: 300px;
-      margin-bottom: 20px;
-      line-height: 1.55;
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(18px, 3.2vw, 30px);
+      color: var(--white);
+      line-height: 1.45;
+      text-align: center;
+      max-width: 470px;
+      margin: 0 auto 24px;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
 
     .score-grid {
-      gap: 8px;
-      max-width: 280px;
-      margin-inline: auto;
-      margin-bottom: 28px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(46px, 1fr));
+      gap: 10px;
+      justify-content: center;
+      width: min(100%, 320px);
+      margin: 0 auto 28px;
     }
 
     .score-btn {
-      width: 40px;
-      height: 40px;
-      font-size: 12px;
+      min-width: 0;
+      height: 50px;
+      border: 1px solid rgba(245,245,240,0.2);
+      background: none;
+      color: var(--mist);
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .score-btn:hover,
+    .score-btn.selected {
+      background: rgba(245,245,240,0.08);
+      border-color: var(--white);
+      color: var(--white);
+      transform: scale(1.04);
+    }
+
+    .score-btn.selected {
+      background: rgba(200,216,232,0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .result-area {
+      display: none;
+      animation: riseIn 0.6s ease both;
+      border-top: 1px solid rgba(245,245,240,0.1);
+      padding-top: 26px;
+      margin-top: 6px;
+    }
+
+    .result-area.active {
+      display: block;
+    }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .result-score-display {
-      font-size: 52px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(54px, 10vw, 70px);
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 14px;
     }
 
     .result-quote {
-      min-height: 48px;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-  }
-
-  @media (max-width: 420px) {
-    .title-block {
-      bottom: 35%;
+      min-height: 120px;
     }
 
-    .main-title {
-      font-size: clamp(40px, 15vw, 64px);
+    .quote-prefix {
+      font-size: clamp(10px, 1.8vw, 12px);
+      letter-spacing: 0.12em;
+      color: var(--mist);
+      text-transform: uppercase;
+      line-height: 1.8;
+      margin-bottom: 10px;
     }
 
-    .nav-links {
-      gap: 8px 10px;
-      font-size: 8px;
+    .quote-text {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(18px, 2.8vw, 24px);
+      line-height: 1.7;
+      color: var(--white);
+      margin-bottom: 14px;
     }
 
-    .soul-btn {
-      width: 100%;
-      font-size: 8px;
-      letter-spacing: 0.1em;
+    .support-text {
+      font-size: clamp(11px, 1.9vw, 13px);
+      line-height: 1.8;
+      letter-spacing: 0.03em;
+      color: var(--mist);
+      max-width: 420px;
+      margin: 0 auto;
     }
 
-    .modal {
-      padding: 28px 14px;
+    .modal-close {
+      margin-top: 24px;
+      background: none;
+      border: none;
+      color: var(--mist);
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.3s ease;
     }
 
-    .modal-question {
-      max-width: 260px;
-      font-size: 15px;
-      line-height: 1.6;
+    .modal-close:hover {
+      color: var(--white);
     }
 
-    .score-grid {
-      max-width: 232px;
-      gap: 8px;
-    }
-  }
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 100svh;
+      }
 
-</style>
+      nav {
+        padding: 16px 18px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        gap: 14px;
+        justify-content: flex-start;
+        font-size: 9px;
+      }
+
+      .title-block {
+        bottom: 30%;
+        width: 94vw;
+      }
+
+      .main-title {
+        font-size: clamp(64px, 17vw, 120px);
+      }
+
+      .soul-btn-wrap {
+        bottom: 6%;
+        width: calc(100% - 32px);
+        display: flex;
+        justify-content: center;
+      }
+
+      .soul-btn {
+        width: min(100%, 320px);
+        white-space: normal;
+        text-align: center;
+        line-height: 1.7;
+        padding: 12px 16px;
+      }
+
+      .modal {
+        padding: 28px 18px 24px;
+      }
+
+      .modal-question {
+        font-size: clamp(16px, 6.2vw, 24px);
+        max-width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .score-grid {
+        width: min(100%, 280px);
+        grid-template-columns: repeat(5, minmax(42px, 1fr));
+        gap: 8px;
+      }
+
+      .score-btn {
+        height: 46px;
+        font-size: 13px;
+      }
+
+      .quote-text {
+        font-size: clamp(17px, 5.2vw, 22px);
+      }
+    }
+
+    @media (max-width: 420px) {
+      .modal-overlay {
+        padding: 12px;
+      }
+
+      .modal {
+        width: 100%;
+        padding: 24px 14px 20px;
+      }
+
+      .modal-question {
+        font-size: clamp(15px, 6vw, 20px);
+        line-height: 1.5;
+      }
+
+      .score-grid {
+        width: 100%;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .score-btn {
+        height: 44px;
+        font-size: 12px;
+      }
+
+      .quote-prefix {
+        font-size: 10px;
+        letter-spacing: 0.08em;
+      }
+
+      .support-text {
+        font-size: 11px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="hero">
-  <div class="bg"></div>
-  <div class="mist-layer"></div>
+  <div class="hero">
+    <div class="bg"></div>
+    <div class="mist-layer"></div>
 
-  <svg class="swoosh" viewBox="0 0 1220 680" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M180,600 C220,400 350,200 500,150 C650,100 750,180 800,300 C850,420 820,560 780,640"/>
-    <path d="M220,620 C260,420 390,220 540,170 C690,120 790,200 840,320 C890,440 860,580 820,660"/>
-    <path d="M150,580 C200,370 340,160 490,110 C640,60 740,160 790,280 C840,400 800,550 760,630"/>
-    <path d="M900,50 C950,150 980,280 960,400 C940,520 880,600 820,640 C780,660 740,650 720,620"/>
-    <path d="M960,30 C1010,130 1040,270 1020,390 C1000,510 940,590 870,630"/>
-    <path d="M1000,10 C1060,120 1090,260 1070,380 C1050,500 980,580 910,620"/>
-  </svg>
+    <svg class="swoosh" viewBox="0 0 1220 680" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M180,600 C220,400 350,200 500,150 C650,100 750,180 800,300 C850,420 820,560 780,640"/>
+      <path d="M220,620 C260,420 390,220 540,170 C690,120 790,200 840,320 C890,440 860,580 820,660"/>
+      <path d="M150,580 C200,370 340,160 490,110 C640,60 740,160 790,280 C840,400 800,550 760,630"/>
+      <path d="M900,50 C950,150 980,280 960,400 C940,520 880,600 820,640 C780,660 740,650 720,620"/>
+      <path d="M960,30 C1010,130 1040,270 1020,390 C1000,510 940,590 870,630"/>
+      <path d="M1000,10 C1060,120 1090,260 1070,380 C1050,500 980,580 910,620"/>
+    </svg>
 
-  <svg class="mountain" viewBox="0 0 1220 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="mg" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#1a2a26" stop-opacity="0.9"/>
-        <stop offset="100%" stop-color="#0d1413" stop-opacity="1"/>
-      </linearGradient>
-    </defs>
-    <path d="M0,300 L0,200 C80,170 120,140 180,100 C240,60 260,90 300,120 C340,150 360,80 420,40 C480,0 510,30 560,60 C610,90 640,50 700,70 C760,90 800,130 860,110 C920,90 960,60 1020,80 C1080,100 1120,140 1220,160 L1220,300 Z" fill="url(#mg)"/>
-    <path d="M0,300 L0,230 C60,210 100,190 160,170 C220,150 270,170 320,185 C380,200 430,175 490,155 C550,135 600,160 650,175 C710,190 760,170 820,155 C880,140 940,150 1000,165 C1060,180 1130,200 1220,210 L1220,300 Z" fill="#0d1413" opacity="0.8"/>
-  </svg>
+    <svg class="mountain" viewBox="0 0 1220 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="mg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a2a26" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#0d1413" stop-opacity="1"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,300 L0,200 C80,170 120,140 180,100 C240,60 260,90 300,120 C340,150 360,80 420,40 C480,0 510,30 560,60 C610,90 640,50 700,70 C760,90 800,130 860,110 C920,90 960,60 1020,80 C1080,100 1120,140 1220,160 L1220,300 Z" fill="url(#mg)"/>
+      <path d="M0,300 L0,230 C60,210 100,190 160,170 C220,150 270,170 320,185 C380,200 430,175 490,155 C550,135 600,160 650,175 C710,190 760,170 820,155 C880,140 940,150 1000,165 C1060,180 1130,200 1220,210 L1220,300 Z" fill="#0d1413" opacity="0.8"/>
+    </svg>
 
-  <nav>
-    <div class="nav-logo">
-      <span>ЭТҮГЭН</span>
-      <span>ИХ СУРГУУЛЬ</span>
+    <nav>
+      <div class="nav-logo">
+        <span>ЭТҮГЭН</span>
+        <span>ИХ СУРГУУЛЬ</span>
+      </div>
+
+      <ul class="nav-links">
+        <li>ХҮН БАЙХУЙ ТӨСӨЛ</li>
+        <li>ПХИ-201</li>
+        <li>TEAM — 4</li>
+      </ul>
+    </nav>
+
+    <div class="title-block">
+      <div class="main-title">Echo of Soul</div>
     </div>
-    <ul class="nav-links">
-      <li>ХҮН БАЙХУЙ ТӨСӨЛ</li>
-      <li>ПХИ-201</li>
-      <li>TEAM — 4</li>
-    </ul>
-  </nav>
 
-  <div class="title-block">
-    <div class="main-title">Echo of Soul</div>
-  </div>
-
-
-
-  <div class="soul-btn-wrap">
-    <button class="soul-btn" onclick="openModal()">
-      ▾ &nbsp; Өнөөдрийг дүгнэх &nbsp; ▾
-    </button>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <div class="modal-question">Өнөөдөр хэр өдөр байв даа?<br>1–10 хооронд дүгнэвэл</div>
-    <div class="score-grid" id="scoreGrid"></div>
-    <div class="result-area" id="resultArea">
-      <div class="result-score-display" id="resultScore"></div>
-      <div class="result-score-label" id="resultScoreLabel"></div>
-      <div class="result-quote" id="resultQuote"></div>
+    <div class="soul-btn-wrap">
+      <button class="soul-btn" type="button" onclick="openModal()">
+        ▾ &nbsp; Өнөөдрийг дүгнэх &nbsp; ▾
+      </button>
     </div>
-    <button class="modal-close" onclick="closeModal()">✕ &nbsp; хаах</button>
   </div>
-</div>
 
-<script>
-const grid = document.getElementById('scoreGrid');
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-question">Өнөөдөр хэр өдөр байв даа? 1–10 хооронд дүгнэвэл</div>
 
-for (let i = 1; i <= 10; i++) {
-  const btn = document.createElement('button');
-  btn.className = 'score-btn';
-  btn.textContent = i;
-  btn.onclick = () => selectScore(i, btn);
-  grid.appendChild(btn);
-}
+      <div class="score-grid" id="scoreGrid"></div>
 
-const quoteCollections = {
-  0: [
-    { text: '“Харанхуй шөнө ч өглөөтэй.”', author: 'Д. Нацагдорж' },
-    { text: '“Зовлон үзсэн сэтгэл илүү тэнгэрлэг.”', author: 'Р. Чойном' }
-  ],
-  1: [
-    { text: '“Тэсэхүй бас хүний хүч юм.”', author: 'Б. Лхагвасүрэн' },
-    { text: '“Гуниг дундаас ч гэрэл төрдөг.”', author: 'О. Дашбалбар' }
-  ],
-  2: [
-    { text: '“Сэтгэлийн шархнаас шүлэг ургадаг.”', author: 'Р. Чойном' },
-    { text: '“Бодлын цаана бас найдвар бий.”', author: 'Д. Пүрэвдорж' }
-  ],
-  3: [
-    { text: '“Хүн өөрийгөө давах гэж амьдардаг.”', author: 'О. Дашбалбар' },
-    { text: '“Багахан гэрэл ч зам болдог.”', author: 'Б. Явуухулан' }
-  ],
-  4: [
-    { text: '“Тайван өдөр бас бэлэг байдаг.”', author: 'Б. Явуухулан' },
-    { text: '“Дундаж хэмнэл ч амьдралын өнгө.”', author: 'Ц. Хулан' }
-  ],
-  5: [
-    { text: '“Энгийн өдөр ч утгатай өнгөрдөг.”', author: 'Д. Пүрэвдорж' },
-    { text: '“Чимээгүй амгалан хамгийн гүн аялгуу.”', author: 'Б. Лхагвасүрэн' }
-  ],
-  6: [
-    { text: '“Сайн өдрийн эхлэл дотроос төрдөг.”', author: 'Б. Явуухулан' },
-    { text: '“Инээмсэглэл бас сэтгэлийн ялалт.”', author: 'Ц. Хулан' }
-  ],
-  7: [
-    { text: '“Хөнгөн сэтгэл хүнийг өндөрт өргөнө.”', author: 'О. Дашбалбар' },
-    { text: '“Өдөр сайхан бол дотор уужирна.”', author: 'Д. Нацагдорж' }
-  ],
-  8: [
-    { text: '“Аз жаргал ойрхон байхдаа дулаан.”', author: 'Б. Явуухулан' },
-    { text: '“Гэрэлтэй өдөр хүнийг дотроос нь тэтгэдэг.”', author: 'Ц. Хулан' }
-  ],
-  9: [
-    { text: '“Сэтгэл баясахад ертөнц ойртдог.”', author: 'Д. Пүрэвдорж' },
-    { text: '“Жаргалтай мөч мөнх биш ч үнэтэй.”', author: 'Б. Лхагвасүрэн' }
-  ],
-  10: [
-    { text: '“Амьдрал сайхан гэдгийг зарим өдөр бүтнээр нь мэдэрнэ.”', author: 'О. Дашбалбар' },
-    { text: '“Төгс өдөр хүний дотор гэрэл үлдээдэг.”', author: 'Б. Явуухулан' }
-  ]
-};
+      <div class="result-area" id="resultArea">
+        <div class="result-score-display" id="resultScore"></div>
+        <div class="result-quote" id="resultQuote"></div>
+      </div>
 
-const shownByScore = new Map();
+      <button class="modal-close" type="button" onclick="closeModal()">✕ &nbsp; хаах</button>
+    </div>
+  </div>
 
-function openModal() {
-  document.getElementById('modalOverlay').classList.add('active');
-  document.getElementById('resultArea').classList.remove('active');
-  document.querySelectorAll('.score-btn').forEach(b => b.classList.remove('selected'));
-}
+  <script>
+    const grid = document.getElementById('scoreGrid');
 
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('active');
-}
+    for (let i = 1; i <= 10; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'score-btn';
+      btn.type = 'button';
+      btn.textContent = i;
+      btn.onclick = () => selectScore(i, btn);
+      grid.appendChild(btn);
+    }
 
-function getQuoteForScore(score) {
-  const pool = quoteCollections[score] || [];
-  const used = shownByScore.get(score) || new Set();
-  const availableIndices = pool.map((item, idx) => idx).filter(idx => !used.has(idx));
+    const supportMessages = {
+      1: 'Өнөөдөр хангалттай сайн байгаагүй ч бүрэн муу байсангүй шүү.',
+      2: 'Хэцүү байсан ч чи өнөөдрийг давж гарсан нь өөрөө үнэ цэнтэй.',
+      3: 'Бага зэрэг ядраад өнгөрсөн ч чи өөрийгөө авч явж чадсан.',
+      4: 'Өдөр төгс биш байсан ч дотроо чи тэсэж үлдсэн байна.',
+      5: 'Энгийн өдөр байсан ч ингэж тогтвортой байх нь бас хүч юм.',
+      6: 'Жижигхэн сайн мэдрэмжүүдийг битгий голоорой, тэд бас чамайг тэтгэдэг.',
+      7: 'Өнөөдөр чи арай дээр байжээ, энэ мэдрэмжээ зөөлөн хадгалаарай.',
+      8: 'Сайн өдөр байжээ, өөрийгөө ингэж мэдэрснээ үнэлээрэй.',
+      9: 'Өнөөдрийн гэрэл маргаашид чинь ч бас нөлөөлнө шүү.',
+      10: 'Ийм өдрийг зүрхэндээ хадгал, хэцүү үед чинь дахин түшиг болно.'
+    };
 
-  let chosenIndex;
-  if (availableIndices.length > 0) {
-    chosenIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
-  } else {
-    used.clear();
-    chosenIndex = Math.floor(Math.random() * pool.length);
-  }
+    const inspiredLines = {
+      1: [
+        { author: 'Б. Явуухулан', line: 'Гунигтай өдөр ч дотроо багахан гэрэл үлдээж болдог.' },
+        { author: 'Р. Чойном', line: 'Хэцүү мөч хүнийг сул биш, илүү үнэн болгодог.' },
+        { author: 'Д. Нацагдорж', line: 'Бараан өдрийн цаана ч шинэ өглөө ирдэг.' }
+      ],
+      2: [
+        { author: 'Б. Лхагвасүрэн', line: 'Ядарсан сэтгэлд хамгийн түрүүнд амсхийх зай хэрэгтэй.' },
+        { author: 'П. Бадарч', line: 'Өнөөдрийн шаналан маргаашийн бүхнийг шийдэхгүй.' },
+        { author: 'Ц. Хулан', line: 'Дотроо гунигтай байсан ч хүн өөрийгөө дахин босгож чадна.' }
+      ],
+      3: [
+        { author: 'Г. Мэнд-Ооёо', line: 'Чимээгүй өдөр ч сэтгэлийн гүнд хөдөлгөөн үлддэг.' },
+        { author: 'О. Дашбалбар', line: 'Ганхсан алхам хүртэл урагшилж байвал үнэ цэнтэй.' },
+        { author: 'Д. Урианхай', line: 'Төгс биш өдөр ч хүнийг илүү ухаан суулгадаг.' }
+      ],
+      4: [
+        { author: 'Б. Явуухулан', line: 'Энгийнхэн тэсэж өнгөрүүлэх нь бас нэг төрлийн хүч юм.' },
+        { author: 'П. Бадарч', line: 'Зөөлөн гунигтай өдөр хүртэл дотроо утга тээдэг.' },
+        { author: 'Ц. Хулан', line: 'Дуугүй өнгөрсөн өдөр ч сэтгэлд мөр үлдээдэг.' }
+      ],
+      5: [
+        { author: 'Д. Нацагдорж', line: 'Дундаж өдөр гэдэг хоосон өдөр биш.' },
+        { author: 'Б. Лхагвасүрэн', line: 'Тайван өнгөрөх нь заримдаа хамгийн том ивээл байдаг.' },
+        { author: 'Г. Мэнд-Ооёо', line: 'Чимээгүй хэмнэлд ч амар амгалан нуугдаж байдаг.' }
+      ],
+      6: [
+        { author: 'О. Дашбалбар', line: 'Жижигхэн гэрэл ч өдрийг бүхэлд нь өөрчилж чадна.' },
+        { author: 'Р. Чойном', line: 'Дулаахан мэдрэмж заримдаа хамгийн даруухнаар ирдэг.' },
+        { author: 'П. Бадарч', line: 'Сайн зүйл заавал сүртэй биш, зөөлөн ч байж болно.' }
+      ],
+      7: [
+        { author: 'Б. Явуухулан', line: 'Өдөр сайхан байхад сэтгэл өөртэйгөө илүү эвтэй байдаг.' },
+        { author: 'Ц. Хулан', line: 'Зүрх тайван байх мөч хамгийн үнэн амгаланд ойрхон.' },
+        { author: 'Д. Урианхай', line: 'Сайн өдөр хүний доторх гэгээг чимээгүй асаадаг.' }
+      ],
+      8: [
+        { author: 'Б. Лхагвасүрэн', line: 'Сайхан өдөр хүний амьдралд зөөлөн мөр үлдээдэг.' },
+        { author: 'Г. Мэнд-Ооёо', line: 'Гэрэлтэй өдөр хүн өөрийгөө арай илүү хайрлаж чаддаг.' },
+        { author: 'О. Дашбалбар', line: 'Дулаан мэдрэмжтэй өдөр бол зүрхэндээ хадгалах бэлэг юм.' }
+      ],
+      9: [
+        { author: 'П. Бадарч', line: 'Гэгээтэй өдөр хүн амьдралтайгаа илүү эвлэрдэг.' },
+        { author: 'Б. Явуухулан', line: 'Сайхан өдөр ирэхэд сэтгэл өөрөө тэнгэр өөд хардаг.' },
+        { author: 'Ц. Хулан', line: 'Дулаан өдөр хүний нүдэнд хүртэл өөр өнгө ордог.' }
+      ],
+      10: [
+        { author: 'Д. Нацагдорж', line: 'Ийм өдөр амьдрал бүхлээрээ ойрхон санагддаг.' },
+        { author: 'Б. Лхагвасүрэн', line: 'Зүрх дүүрэн өдөр бол маргаашдаа авч үлдэх хүч юм.' },
+        { author: 'Г. Мэнд-Ооёо', line: 'Гэрэлтэй өдөр хүний дотор итгэлийг дахин төрүүлдэг.' }
+      ]
+    };
 
-  used.add(chosenIndex);
-  shownByScore.set(score, used);
-  return pool[chosenIndex];
-}
+    const shownByScore = {};
 
-async function selectScore(score, btn) {
-  document.querySelectorAll('.score-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
+    function escapeHTML(str) {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
 
-  const resultArea = document.getElementById('resultArea');
-  const resultScore = document.getElementById('resultScore');
-  const resultQuote = document.getElementById('resultQuote');
-  const resultScoreLabel = document.getElementById('resultScoreLabel');
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('active');
+      document.getElementById('resultArea').classList.remove('active');
+      document.querySelectorAll('.score-btn').forEach(btn => btn.classList.remove('selected'));
+    }
 
-  resultScore.textContent = score;
-  resultScoreLabel.textContent = '';
-  resultQuote.innerHTML = '<span class="loading-anim">уншиж байна</span>';
-  resultArea.classList.add('active');
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+    }
 
-  const chosen = getQuoteForScore(score);
+    function getUniqueEntry(score) {
+      const pool = inspiredLines[score] || [];
+      if (!shownByScore[score]) shownByScore[score] = [];
 
-  resultQuote.innerHTML = `
-    <div class="quote-prefix">Яруу найрагч хэлэхдээ</div>
-    <div class="quote-text">${chosen.text}</div>
-    <div class="quote-author">— ${chosen.author}</div>
-  `;
-}
+      const usedIndexes = shownByScore[score];
+      const availableIndexes = pool
+        .map((_, index) => index)
+        .filter(index => !usedIndexes.includes(index));
 
-document.getElementById('modalOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-</script>
+      let chosenIndex;
+
+      if (availableIndexes.length > 0) {
+        chosenIndex = availableIndexes[Math.floor(Math.random() * availableIndexes.length)];
+        usedIndexes.push(chosenIndex);
+      } else {
+        chosenIndex = Math.floor(Math.random() * pool.length);
+      }
+
+      return pool[chosenIndex];
+    }
+
+    function selectScore(score, btn) {
+      document.querySelectorAll('.score-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+
+      const resultArea = document.getElementById('resultArea');
+      const resultScore = document.getElementById('resultScore');
+      const resultQuote = document.getElementById('resultQuote');
+
+      const entry = getUniqueEntry(score);
+
+      resultScore.textContent = score;
+      resultArea.classList.add('active');
+
+      resultQuote.innerHTML = `
+        <div class="quote-prefix">ЯРУУ НАЙРАГЧ — ${escapeHTML(entry.author)} хэлэхдээ</div>
+        <div class="quote-text">“${escapeHTML(entry.line)}”</div>
+        <div class="support-text">${escapeHTML(supportMessages[score] || 'Өнөөдөр ямар байсан ч чи өөртөө арай зөөлөн байгаарай.')}</div>
+      `;
+    }
+
+    document.getElementById('modalOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
 </body>
 </html>
