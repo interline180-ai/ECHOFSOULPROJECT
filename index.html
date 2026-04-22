@@ -186,8 +186,11 @@
       left: 50%;
       bottom: 28%;
       transform: translateX(-50%);
-      width: min(92vw, 1100px);
+      width: 100%;
       text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       animation: fadeUp 1.2s ease 0.5s both;
     }
 
@@ -204,6 +207,9 @@
       line-height: 0.9;
       text-shadow: 0 2px 40px rgba(0,0,0,0.4);
       user-select: none;
+      text-align: center;
+      width: 100%;
+      margin: 0 auto;
     }
 
     .soul-btn-wrap {
@@ -297,6 +303,10 @@
       margin: 0 auto 24px;
       word-break: keep-all;
       overflow-wrap: break-word;
+    }
+
+    .modal-question .question-line {
+      display: block;
     }
 
     .score-grid {
@@ -426,7 +436,7 @@
 
       .title-block {
         bottom: 30%;
-        width: 94vw;
+        width: 100%;
       }
 
       .main-title {
@@ -562,7 +572,10 @@
 
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
-      <div class="modal-question">Өнөөдөр хэр өдөр байв даа ?\n 1–10 хооронд дүгнэвэл</div>
+      <div class="modal-question">
+        <span class="question-line">Өнөөдөр хэр байв даа ?</span>
+        <span class="question-line">1–10 хооронд дүгнэвэл</span>
+      </div>
 
       <div class="score-grid" id="scoreGrid"></div>
 
@@ -709,7 +722,7 @@
       resultArea.classList.add('active');
 
       resultQuote.innerHTML = `
-        <div class="quote-prefix">ЯРУУ НАЙРАГЧ — ${escapeHTML(entry.author)} хэлэхдээ</div>
+        <div class="quote-prefix">ЯРУУ НАЙРАГЧ — ${escapeHTML(entry.author)} ХЭЛЭХДЭЭ</div>
         <div class="quote-text">“${escapeHTML(entry.line)}”</div>
         <div class="support-text">${escapeHTML(supportMessages[score] || 'Өнөөдөр ямар байсан ч чи өөртөө арай зөөлөн байгаарай.')}</div>
       `;
