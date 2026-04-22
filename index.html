@@ -182,21 +182,25 @@
 
     .title-block {
       position: absolute;
+      inset: 0;
       z-index: 8;
-      left: 50%;
-      bottom: 28%;
-      transform: translateX(-50%);
-      width: 100%;
-      text-align: center;
       display: flex;
       justify-content: center;
       align-items: center;
+      text-align: center;
+      pointer-events: none;
       animation: fadeUp 1.2s ease 0.5s both;
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .main-title {
@@ -210,6 +214,7 @@
       text-align: center;
       width: 100%;
       margin: 0 auto;
+      padding: 0 16px;
     }
 
     .soul-btn-wrap {
@@ -432,11 +437,6 @@
         gap: 14px;
         justify-content: flex-start;
         font-size: 9px;
-      }
-
-      .title-block {
-        bottom: 30%;
-        width: 100%;
       }
 
       .main-title {
